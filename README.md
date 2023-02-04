@@ -6,6 +6,8 @@ Generates necessary files for favicon from single .png or .svg, following [the a
 
 ## Usage
 
+You need `deno` command installed on your machine.
+
 ```bash
 deno run --unstable --allow-read --allow-write --allow-ffi \
   "https://deno.land/x/faviconize/cmd.ts" \
@@ -14,3 +16,5 @@ deno run --unstable --allow-read --allow-write --allow-ffi \
 ```
 
 `.svg` and `.png` are supported as the input format.
+
+
