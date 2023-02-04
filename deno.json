@@ -1,0 +1,6 @@
+{
+  "$schema": "https://deno.land/x/deno@v1.30.2/cli/schemas/config-file.v1.json",
+  "tasks": {
+    "dev": "deno run --unstable --allow-ffi --allow-read --allow-write cmd.ts"
+  }
+}
