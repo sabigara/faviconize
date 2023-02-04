@@ -54,8 +54,14 @@ await new Command()
     console.log();
     console.log("✨ Favicons and manifest file are generated at:");
     console.log(colors.cyan(resolve(options.outdir)));
+
     console.log();
-    console.log("🛠  Append the following tags in your HTML <head>:");
+    console.log(
+      "🛠  1. Put the generated files in the root of public directory."
+    );
+
+    console.log();
+    console.log("🛠  2. Append the following tags in the HTML <head>:");
     console.log(colors.cyan(html));
   })
   .parse(Deno.args);
