@@ -1,5 +1,9 @@
 # Faviconize
 
+## What's this
+
+Generates necessary files for favicon from single .png or .svg, following [the article written by Andrey Sitnik](https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs).
+
 ## Usage
 
 ```bash
