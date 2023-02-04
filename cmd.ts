@@ -1,4 +1,8 @@
-import { extname, resolve } from "https://deno.land/std@0.176.0/path/mod.ts";
+import {
+  join,
+  extname,
+  resolve,
+} from "https://deno.land/std@0.176.0/path/mod.ts";
 import {
   Command,
   ValidationError,
@@ -16,7 +20,7 @@ await new Command()
   .description("Generate favicons")
   .option(
     "-i --input <input:file>",
-    "Source file. Available formats: [].png, .jpg, .svg]",
+    "Path to the source file. Available formats: [.png, .jpg, .svg]",
     {
       required: true,
       value: (val) => {
@@ -31,14 +35,21 @@ await new Command()
       },
     }
   )
-  .option("-o --outdir <outdir:file>", "Directory to output favicons.", {
-    default: "favicons" as const,
-  })
+  .option(
+    "-o --output <output:file>",
+    "Path to output a directory that contains the generated favicons.",
+    {
+      default: "." as const,
+      value: (val) => {
+        return resolve(join(val, "favicons"));
+      },
+    }
+  )
   .action((options) => {
     console.log();
     console.log("⏱️ Generating favicons...");
 
-    ensureDirSync(options.outdir);
+    ensureDirSync(options.output);
 
     let source = Deno.readFileSync(options.input);
     if (extname(options.input) === ".svg") {
@@ -46,19 +57,18 @@ await new Command()
     }
     makeFavicons({
       source,
-      outdir: options.outdir,
+      outdir: options.output,
       pngSizes: [192, 512],
     });
-    writeManifest(options.outdir);
+    writeManifest(options.output);
 
-    console.log();
-    console.log("✨ Favicons and manifest file are generated at:");
-    console.log(colors.cyan(resolve(options.outdir)));
+    console.log("✨ Success!");
 
     console.log();
     console.log(
-      "🛠  1. Put the generated files in the root of public directory."
+      "🛠  1. Favicons and webmanifest are generated at the below location. Put them in the root of the public directory of your website."
     );
+    console.log(colors.cyan(resolve(options.output)));
 
     console.log();
     console.log("🛠  2. Append the following tags in the HTML <head>:");
