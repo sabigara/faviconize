@@ -51,9 +51,14 @@ await new Command()
 
     ensureDirSync(options.output);
 
+    const isSvg = extname(options.input) === ".svg";
     let source = Deno.readFileSync(options.input);
-    if (extname(options.input) === ".svg") {
+    if (isSvg) {
       source = renderSvg(source, 512);
+      Deno.copyFileSync(
+        options.input,
+        resolve(join(options.output, "icon.svg"))
+      );
     }
     makeFavicons({
       source,
@@ -72,6 +77,6 @@ await new Command()
 
     console.log();
     console.log("🛠  2. Append the following tags in the HTML <head>:");
-    console.log(colors.cyan(html));
+    console.log(colors.cyan(html(isSvg)));
   })
   .parse(Deno.args);
