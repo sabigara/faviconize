@@ -66,7 +66,10 @@ export function makeFavicons({
         (image) => resize(image, size)
       );
     });
-    withCloneAndWrite({ image, filename: join(outdir, "icon.ico") }, makeIco);
+    withCloneAndWrite(
+      { image, filename: join(outdir, "favicon.ico") },
+      makeIco
+    );
     withCloneAndWrite(
       {
         image,

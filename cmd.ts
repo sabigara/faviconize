@@ -20,11 +20,11 @@ await new Command()
   .description("Generate favicons")
   .option(
     "-i --input <input:file>",
-    "Path to the source file. Available formats: [.png, .jpg, .svg]",
+    "Path to the source file. Available formats: [.png, .svg]",
     {
       required: true,
       value: (val) => {
-        const supportedFormats = [".png", ".jpg", ".svg"];
+        const supportedFormats = [".png", ".svg"];
         const ext = extname(val);
         if (!supportedFormats.includes(ext.toLowerCase())) {
           throw new ValidationError(
